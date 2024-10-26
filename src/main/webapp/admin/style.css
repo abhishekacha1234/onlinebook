@@ -1,6 +1,9 @@
 /* styles.css */
 
 /* Custom Edit Button */
+.table{
+	margin-top:50px;
+}
 .btn-primary {
     background-color: #4CAF50; /* Green background */
     color: white; /* White text */

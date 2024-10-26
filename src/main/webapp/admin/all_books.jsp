@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-
+	<jsp:include page="navbar.jsp" />
     <!-- Dark Header Table -->
     <table class="table">
         <thead class="bg-dark text-white">

@@ -13,7 +13,7 @@
         }
 
         .container {
-            margin-top: 50px;
+            margin-top: 80px;
             max-width: 700px;
         }
 
@@ -89,7 +89,7 @@
     </style>
 </head>
 <body>
-    
+    <jsp:include page="navbar.jsp" />
     <c:if test="${empty userobj}">
         <c:redirect url="../login.jsp" />
     </c:if>
