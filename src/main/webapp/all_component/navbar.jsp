@@ -64,8 +64,8 @@
 
             <!-- Show user details if logged in -->
             <c:if test="${not empty userobj}">
-                <i class="fa-solid fa-cart-shopping fa-1x mt-1"></i>
-                <a href="#" class="btn btn-success">{$userobj.name}</a> 
+                <a href="cart.jsp"class="fa-solid fa-cart-shopping fa-1x mt-1"></a>
+                <a href="#" class="btn btn-success">${userobj.name}</a> 
                 <a href="logout.jsp" class="btn btn-primary text-white">Logout</a>
             </c:if>
 
