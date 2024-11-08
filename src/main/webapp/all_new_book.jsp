@@ -9,16 +9,74 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>BookBase</title>
 <link rel="stylesheet" href="all_component/index.css">
 <%@include file="all_component/navbar.jsp"%>
+
 <style type="text/css">
+/* Center container */
+.center-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	margin: 0 auto;
+	width: 80%; /* Adjust the width as needed */
+}
+
+/* Grid styling for book sections */
+.recommended-books .book-grid,
+.categories .book-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-gap: 20px;
+}
+
+/* Styling for each book card */
+.book-card {
+	border: 5px solid #ddd;
+	border-radius: 18px;
+	overflow: hidden;
+	background-color: #fff;
+	text-align: center;
+}
+
+/* Image styling */
+.book-card img {
+	width: 300px;
+	height: 250px;
+	object-fit: cover;
+	margin-bottom: 10px;
+}
+
+
+
+/* Book details styling */
+.book-details {
+	padding: 15px;
+}
+
+.book-title {
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.book-author {
+	font-size: 16px;
+	color: #666;
+}
+
+.book-rating {
+	margin-top: 5px;
+}
+
 #toast {
 	min-width: 300px;
 	position: fixed;
 	bottom: 30px;
 	left: 50%;
-	margin-left: -125px;
+	margin-left: -150px;
 	background: #333;
 	padding: 10px;
 	color: white;
@@ -31,59 +89,54 @@
 
 #toast.display {
 	visibility: visible;
-	animation: fadeIn 0.5, fadeOut 0.5s 2.5s;
+	animation: fadeIn 0.5s, fadeOut 0.5s 2.5s;
 }
 
-@
-keyframes fadeIn {from { bottom:0;
-	opacity: 0;
+@keyframes fadeIn {
+	from {
+		bottom: 0;
+		opacity: 0;
+	}
+	to {
+		bottom: 30px;
+		opacity: 1;
+	}
 }
 
-to {
-	bottom: 30px;
-	opacity: 1;
-}
-
-}
-@
-keyframes fadeOut {form { bottom:30px;
-	opacity: 1;
-}
-
-to {
-	bottom: 0;
-	opacity: 0;
-}
+@keyframes fadeOut {
+	from {
+		bottom: 30px;
+		opacity: 1;
+	}
+	to {
+		bottom: 0;
+		opacity: 0;
+	}
 }
 </style>
 </head>
 <body>
 
-	<%
+<%
 	User u = (User) session.getAttribute("userobj");
-	%>
+%>
 
-	<c:if test="${not empty addCart }">
-
-		<div id="toast">${addCart}</div>
-
-		<script type="text/javascript">
-		showToast();
-		function showToast(content)
-		{
-		    $('#toast').addClass("display");
-		    $('#toast').html(content);
-		    setTimeout(()=>{
-		        $("#toast").removeClass("display");
-		    },2000)
+<c:if test="${not empty addCart}">
+	<div id="toast">${addCart}</div>
+	<script type="text/javascript">
+		function showToast(content) {
+		    document.getElementById('toast').classList.add("display");
+		    document.getElementById('toast').innerHTML = content;
+		    setTimeout(() => {
+		        document.getElementById("toast").classList.remove("display");
+		    }, 2000);
 		}	
-</script>
+		showToast();
+	</script>
+	<c:remove var="addCart" scope="session" />
+</c:if>
 
-		<c:remove var="addCart" scope="session" />
-
-	</c:if>
-
-	
+<div class="center-container">
 	<section class="recommended-books">
 		<h2 class="section-title">New Book</h2>
 		<a href="#" class="see-all">See All ></a>
@@ -91,42 +144,36 @@ to {
 
 			<%
 			BookDaoImpl dao = new BookDaoImpl(DBUtil.getConn());
-			List<BookDtls> list = dao.getNewBook();
-			for (BookDtls b : list) {
-			%>
-			<div class="book-card">
+            List<BookDtls> list = dao.getAllNewBook();
+            for (BookDtls b : list) {
+				%>
+				<div class="book-card">
 				<%
-				if (u == null) {
+				if (u ==null) {
 				%>
 				<a href="login.jsp" class="btn btn-success btn-sm ml-2">Add Cart</a>
 				<%
 				} else {
 				%>
-				<a href="cart?bid=<%=b.getBookId()%>&&uid=<%=u.getId()%>"
-					class="btn btn-sucess btn-sm ml-2">Add Cart</a>
+				<a href="cart?bid=<%=b.getBookId() %>&&uid=<%=u.getId() %>" class="btn btn-sucess btn-sm ml-2">Add Cart</a>
 				<%
 				}
 				%>
-				<img alt="" src="book/<%=b.getPhotoName()%>"
-					style="width: 150px; height: 200px" class="img-thublin">
-				<div class="book-details">
-					<h3 class="book-title"><%=b.getBookName()%></h3>
-					<p class="book-author"><%=b.getAuthor()%></p>
-
-					<a href="view_book.jsp?bid=<%=b.getBookId()%>"
-						class="btn btn-primary btn-sm ml-1">ViewDetails</a>
-
+				<img alt="" src="book/<%=b.getPhotoName() %>" style="width: 150px; height: 200px"class="img-thublin">
+					<div class="book-details">
+						<h3 class="book-title"><%=b.getBookName() %></h3>
+						<p class="book-author"><%=b.getAuthor() %></p>
+						
+						   <a href="view_book.jsp?bid=<%=b.getBookId() %>" class="btn btn-primary btn-sm ml-1">ViewDetails</a> 
+						
+					</div>
 				</div>
-			</div>
-			<%
-			}
+				<%
+				}
 			%>
-
-
-			<!-- Add more book cards as needed -->
 		</div>
 	</section>
-
+</div>
 
 </body>
 </html>

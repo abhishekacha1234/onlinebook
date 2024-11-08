@@ -1,7 +1,6 @@
 package com.admin.servlet;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,35 +15,62 @@ import com.entity.BookDtls;
 @WebServlet("/editbooks")
 public class EditBooksServlet extends HttpServlet {
 
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		try {
-			int id=Integer.parseInt(req.getParameter("id"));
-			String bookName=req.getParameter("bname");
-			String author=req.getParameter("author");
-			String price = req.getParameter("price");
-			String status = req.getParameter("status");
-			
-			BookDtls b = new BookDtls();
-			b.setBookId(id);
-			b.setBookName(bookName);
-			b.setAuthor(author);
-			b.setPrice(price);
-			b.setStatus(status);
-			
-			BookDaoImpl dao = new BookDaoImpl(DBUtil.getConn());
-			boolean f = dao.updateEditBooks(b);
-			HttpSession session = req.getSession();
-			if(f) {
-				session.setAttribute("succMsg", "Book Update Succesfully..");
-				resp.sendRedirect("admin/all_books.jsp");
-			}else {
-				session.setAttribute("failedMsg", "Something Wrong");
-				resp.sendRedirect("admin/all_books.jsp");
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
 
+        try {
+            // Retrieve parameters and validate
+            String idStr = req.getParameter("id");
+            if (idStr == null || idStr.isEmpty()) {
+                session.setAttribute("failedMsg", "Book ID is missing.");
+                resp.sendRedirect("admin/all_books.jsp");
+                return;
+            }
+
+            int id = Integer.parseInt(idStr); // Parse ID to integer
+            String bookName = req.getParameter("bname");
+            String author = req.getParameter("author");
+            String price = req.getParameter("price");
+            String status = req.getParameter("status");
+
+            // Validate input fields
+            if (bookName == null || bookName.isEmpty() ||
+                author == null || author.isEmpty() ||
+                price == null || price.isEmpty() ||
+                status == null || status.isEmpty()) {
+                session.setAttribute("failedMsg", "All fields are required.");
+                resp.sendRedirect("admin/all_books.jsp");
+                return;
+            }
+
+            // Create BookDtls object and set values
+            BookDtls book = new BookDtls();
+            book.setBookId(id);
+            book.setBookName(bookName);
+            book.setAuthor(author);
+            book.setPrice(price);
+            book.setStatus(status);
+
+            // Update book information in the database
+            BookDaoImpl dao = new BookDaoImpl(DBUtil.getConn());
+            boolean updateSuccess = dao.updateEditBooks(book);
+
+            // Send success or failure message to the session
+            if (updateSuccess) {
+                session.setAttribute("succMsg", "Book updated successfully.");
+            } else {
+                session.setAttribute("failedMsg", "Something went wrong while updating the book.");
+            }
+            resp.sendRedirect("admin/all_books.jsp");
+
+        } catch (NumberFormatException e) {
+            session.setAttribute("failedMsg", "Invalid Book ID format.");
+            resp.sendRedirect("admin/all_books.jsp");
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.setAttribute("failedMsg", "An unexpected error occurred. Please try again later.");
+            resp.sendRedirect("admin/all_books.jsp");
+        }
+    }
 }

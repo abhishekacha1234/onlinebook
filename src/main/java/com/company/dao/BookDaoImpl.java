@@ -107,7 +107,7 @@ public class BookDaoImpl implements BookDao{
 	public boolean updateEditBooks(BookDtls b) {
 		boolean f = false;
 		try {
-			String sql = "update book_dtls set bookname=?,author=?,price=?,status=? where bookId=?";
+			String sql = "update book_dtls set bookname=?,author=?,price=?,status=? where bookId = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, b.getBookName());
 			ps.setString(2, b.getAuthor());

@@ -1,8 +1,9 @@
+<%@page import="com.company.dao.BookDaoImpl"%>
 <%@page import="com.entity.User"%>
 <%@page import="com.entity.BookDtls"%>
 <%@page import="java.util.List"%>
 <%@page import="com.company.util.DBUtil"%>
-<%@page import="com.company.dao.BookDaoImpl"%>
+<%-- <%@page import="com.company.dao.BookDaoImpl"%> --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -65,7 +66,7 @@
 				}
 				%>
 				<div class="text-center mt-1">
-                <a href="all_recent_books.jsp" class="btn btn-danger btn-block text-white">View All</a>
+                <a href="all_recent_book.jsp" class="btn btn-danger btn-block text-white">View All</a>
             </div>
 				<!-- Add more book cards as needed -->
 			</div>
@@ -108,7 +109,8 @@
 				}
 			%>
 				
-				
+				<div class="text-center mt-1">
+                <a href="all_new_book.jsp" class="btn btn-danger btn-block text-white">View All</a>
 				<!-- Add more book cards as needed -->
 			</div>
 		</section>
