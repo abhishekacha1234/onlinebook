@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,7 +67,7 @@
             <c:if test="${not empty userobj}">
                 <a href="cart.jsp"class="fa-solid fa-cart-shopping fa-1x mt-1"></a>
                 <a href="#" class="btn btn-success">${userobj.name}</a> 
-                <a href="logout.jsp" class="btn btn-primary text-white">Logout</a>
+                <a href="logout" class="btn btn-primary text-white">Logout</a>
             </c:if>
 
             <!-- Show login/register options if not logged in -->

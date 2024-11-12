@@ -126,25 +126,13 @@
                             <div class="text-primary">
                                 <i class="fas fa-user-shield"></i>
                             </div>
-                            <h4>Login & Security (Edit Profile)</h4>
+                            <h4>Edit Profile</h4>
                         </div>
                     </div>
                 </a>
             </div>
 
-            <div class="col">
-                <a href="user_address.jsp">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="text-warning">
-                                <i class="fas fa-location-arrow"></i>
-                            </div>
-                            <h4>Your Address</h4>
-                            <p>Edit Address</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
+
 
             <div class="col">
                 <a href="order.jsp">
