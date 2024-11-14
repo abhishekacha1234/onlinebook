@@ -11,4 +11,7 @@ public interface UserDao {
 	
 	
 
+	public boolean checkPassword(int id,String ps);
+	
+	public boolean updateProfile(User us);
 }

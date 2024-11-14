@@ -103,42 +103,53 @@
             <div class="card bg-white w-100">
                 <div class="card-body">
                     <h3 class="text-center text-success">Your Selected Item</h3>
-                    <form>
+                    <form action="order" method="post">
+                    <input type="hidden" value="${userobj.id }" name="id">
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="inputName4">Name</label>
-                                <input type="text" class="form-control" id="inputName4">
+                                <label for="inputName4">Name</label> 
+                                <input type="text" name="username" class="form-control" id="inputName4" value="${userobj.name}">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputEmail4">Email</label>
-                                <input type="email" class="form-control" id="inputEmail4" >
+                                <input type="email" name="email" class="form-control" id="inputEmail4" value="${userobj.email}">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputPhone4">Phone Number</label>
-                                <input type="tel" class="form-control" id="inputPhone4">
+                                <input type="tel" name="phno" class="form-control" id="inputPhone4" value="${userobj.phno}">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputAddress4">Address</label>
-                                <input type="text" class="form-control" id="inputAddress4">
+                                <input type="text" name="address" class="form-control" id="inputAddress4">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputLandmark4">Landmark</label>
-                                <input type="text" class="form-control" id="inputLandmark4">
+                                <input type="text" name="landmark" class="form-control" id="inputLandmark4">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputCity4">City</label>
-                                <input type="text" class="form-control" id="inputCity4">
+                                <input type="text" name="city" class="form-control" id="inputCity4">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputLandmark4">State</label>
+                                <input type="text" name="state" class="form-control" id="inputLandmark4">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputCity4">Pincode</label>
+                                <input type="text" name="pincode" class="form-control" id="inputCity4">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="paymentMode">Payment Mode</label>
-                            <select class="form-control" id="paymentMode">
-                                <option>---select---</option>
-                                <option>Cash on Delivery</option>
+                            <select class="form-control" id="paymentMode" name="payment">
+                                <option value="noselect">---select---</option>
+                                <option value="COD">Cash on Delivery</option>
                             </select>
                         </div>
                         <div class="text-center">

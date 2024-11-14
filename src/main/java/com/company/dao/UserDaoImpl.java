@@ -8,6 +8,9 @@ import com.entity.User;
 
 public class UserDaoImpl implements UserDao {
 	
+	
+
+
 	private Connection conn;
 
 	public UserDaoImpl(Connection conn) {
@@ -78,6 +81,58 @@ public class UserDaoImpl implements UserDao {
 		
 		return us;
 		
+	}
+	
+	
+
+	@Override
+	public boolean checkPassword(int id,String ps) {
+		boolean f= false;
+		
+		try {
+			String sql = "select * from user where password=?";
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setString(1, ps);
+			
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
+				f = true;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return f;
+	}
+	
+	
+	@Override
+	public boolean updateProfile(User us) {
+       boolean f = false;
+		
+		try {
+			// Corrected SQL query with appropriate placeholders for the parameters
+			String sql = "UPDATE user SET name=?, email=?, phno=? WHERE id=?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+
+			// Corrected parameter indexes
+			ps.setString(1, us.getName());
+			ps.setString(2, us.getEmail());
+			ps.setString(3, us.getPhno());
+			ps.setInt(4, us.getId());
+			
+			// Execute update and check if it was successful
+			int i = ps.executeUpdate();
+			if(i == 1) {
+				f = true;
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		// Return the result of the operation
+		return f;
 	}
 	
 	

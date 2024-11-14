@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -96,20 +97,38 @@
         <div class="card">
             <div class="card-body">
                 <h4>Edit Profile</h4>
-                <form action="register" method="post">
+                
+                            <c:if test="${not empty failedMsg}">
+                                <div class="container text-center">
+                                    <div class="alert alert-danger" role="alert">
+                                        ${failedMsg}
+                                    </div>
+                                </div>
+                                <c:remove var="failedMsg" />
+                            </c:if>
+                            <c:if test="${not empty succMsg}">
+                                <div class="container text-center">
+                                    <div class="alert alert-success" role="alert">
+                                        ${succMsg}
+                                    </div>
+                                </div>
+                                <c:remove var="succMsg" />
+                            </c:if>
+                <form action="update_profile" method="post">
+                <input type="hidden" value="${userobj.id }" name="id">
                     <div class="form-group">
                         <label for="fullName">Enter Full Name</label>
-                        <input type="text" id="fullName" name="fname" required="required">
+                        <input type="text" id="fullName" name="fname" required="required" value="${userobj.name}">
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required="required">
+                        <input type="email" id="email" name="email" required="required" value="${userobj.email}">
                     </div>
 
                     <div class="form-group">
                         <label for="phone">Phone No</label>
-                        <input type="number" id="phone" name="phno" required="required">
+                        <input type="number" id="phone" name="phno" required="required" value="${userobj.phno}">
                     </div>
 
                     <div class="form-group">
