@@ -9,7 +9,7 @@ public class DBUtil {
 	public static Connection getConn() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/digitalbookrepo", "root", "satu123#");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/digitalbookrepo", "root", "acharya01234");
 
 		} catch (Exception e) {
 			e.printStackTrace();
